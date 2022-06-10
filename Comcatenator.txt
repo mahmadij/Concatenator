@@ -1,0 +1,38 @@
+Sub RecreateSheet()
+'
+' RecreateSheet Macro
+'
+'SOURCE
+
+'TARGET
+'
+    Dim sh As Worksheet
+    
+    Dim i As Long
+    Dim j As Long
+    Dim fRange As String
+    
+    Set sh = Sheets(2)
+    j = 1
+    Application.DisplayAlerts = False
+    
+    Sheets(3).Select
+    ActiveWindow.SelectedSheets.Delete
+    Sheets.Add After:=Sheets(2)
+    Sheets(3).Select
+    
+    For i = 2 To 200
+        For j = 3 To 17
+        Cells(i, 1).Value = sh.Cells(i, 1).Value
+            If sh.Cells(i, j).Value <> "" Then
+                If Cells(i, 2).Value <> "" Then
+                    Cells(i, 2).Value = Cells(i, 2).Value & ", "
+                End If
+                Cells(i, 2).Value = Cells(i, 2).Value & sh.Cells(i, j).Value
+            End If
+        Next j
+    Next i
+    Application.DisplayAlerts = True
+    ActiveWorkbook.Save
+End Sub
+
